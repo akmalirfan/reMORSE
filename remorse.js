@@ -41,6 +41,29 @@ let morse = {
     '-----': '0'
 }
 
+const createKeyboard = () => {
+    let keys = [
+        'qwertyuiop',
+        'asdfghjkl',
+        'zxcvbnm'
+    ]
+
+    for (let [index, key] of keys.entries()) {
+        let div = document.createElement('div')
+        for (let i = 0; i < key.length; i++) {
+            let btn = document.createElement('button')
+            btn.appendChild(document.createTextNode(key.charAt(i)))
+            btn.setAttribute('id', `key${key.charAt(i).toUpperCase()}`)
+
+            if (i === 0) {
+                btn.setAttribute('style', `margin-left: ${index * 10}px;`)
+            }
+            div.appendChild(btn)
+        }
+        keyboard.appendChild(div)
+    }
+}
+
 function updateStatus() {
     scangamepads();
     let textbox = document.getElementById('textbox')
