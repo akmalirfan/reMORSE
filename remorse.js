@@ -62,6 +62,55 @@ const createKeyboard = () => {
         }
         keyboard.appendChild(div)
     }
+
+    // Update it for the first time
+    updateKeyboard('')
+}
+
+const updateKeyboard = codeStr => {
+    let matchedCodes = Object.keys(morse).filter(code => {
+        let matches = code.match(new RegExp(`^${codeStr.replace('.', '[.]')}[.-]*`))
+        if (matches) return Boolean(matches[0].length)
+        return false
+    })
+    let nextDit = matchedCodes.filter(code => code[codeStr.length] === '.').map(code => morse[code])
+    let nextDah = matchedCodes.filter(code => code[codeStr.length] === '-').map(code => morse[code])
+    let exactMatch = matchedCodes.filter(code => code === codeStr).map(code => morse[code])
+
+    // Make all the letters transparent
+    for (let btn of document.getElementsByTagName('button')) {
+        btn.style.color = 'transparent'
+    }
+
+    // Add indicator for matched keys (nextDit)
+    for (let key of nextDit) {
+        let btn = document.getElementById(`key${key.toUpperCase()}`)
+
+        if (btn) {
+            btn.style.color = 'black'
+            btn.innerText = `${key}\u0323`
+        }
+    }
+
+    // Add indicator for matched keys (nextDah)
+    for (let key of nextDah) {
+        let btn = document.getElementById(`key${key.toUpperCase()}`)
+
+        if (btn) {
+            btn.style.color = 'black'
+            btn.innerText = `${key}\u0320`
+        }
+    }
+
+    // Add indicator for matched key (exactMatch)
+    for (let key of exactMatch) {
+        let btn = document.getElementById(`key${key.toUpperCase()}`)
+
+        if (btn) {
+            btn.style.color = 'red'
+            btn.innerText = key
+        }
+    }
 }
 
 function updateStatus() {
@@ -109,6 +158,8 @@ function updateStatus() {
                 }
                 prevBtn += i
                 prevBtn = prevBtn.slice(-2)
+
+                updateKeyboard(codeStr)
                 }
             } else {
                 if (prevBtn.endsWith(`${i}`)) {
