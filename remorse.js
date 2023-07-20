@@ -53,10 +53,10 @@ const createKeyboard = () => {
         for (let i = 0; i < key.length; i++) {
             let btn = document.createElement('button')
             btn.appendChild(document.createTextNode(key.charAt(i)))
-            btn.setAttribute('id', `key${key.charAt(i).toUpperCase()}`)
+            btn.id = `key${key.charAt(i).toUpperCase()}`
 
             if (i === 0) {
-                btn.setAttribute('style', `margin-left: ${index * 10}px;`)
+                btn.style.marginLeft = `${index * 10}px`
             }
             div.appendChild(btn)
         }
