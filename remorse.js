@@ -139,8 +139,11 @@ function updateStatus() {
                         if (codeStr === '') textbox.value += ' '
                         codeStr = ''
                     } else if (i === 2) { // B
-                        textbox.value = textbox.value.slice(0, -1)
-                        codeStr = ''
+                        if (!codeStr) {
+                            textbox.value = textbox.value.slice(0, -1)
+                        } else {
+                            codeStr = ''
+                        }
                     } else if (i === 4) { // L
                         codeStr += '.'
                     } else if (i === 5) { // R
