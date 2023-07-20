@@ -131,15 +131,14 @@ function updateStatus() {
             }
             if (touched) {
                 if (prevBtn === '~') {
-                    if (i === 1) {
+                    if (i === 1) { // A
                         if (morse[codeStr] !== undefined) {
                             textbox.value += morse[codeStr]
                         }
                         console.log(codeStr)
                         if (codeStr === '') textbox.value += ' '
                         codeStr = ''
-                    }
-                    if (i === 2) { // B
+                    } else if (i === 2) { // B
                         textbox.value = textbox.value.slice(0, -1)
                         codeStr = ''
                     } else if (i === 4) { // L
